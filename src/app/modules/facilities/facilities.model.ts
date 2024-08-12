@@ -11,13 +11,4 @@ const facilitiesSchema = new Schema<TFacilities>({
   isDeleted: { type: Boolean, default: false },
 });
 
-// facilitiesSchema.pre('save',async function(next) {
-//   const isFacilityExit = await Facility.findOne({
-//     name : this.name
-//   })
-//   if (!isFacilityExit){
-//     throw new AppError(httpStatus.NOT_FOUND,'Facility is not found!!!!!!')
-//   }
-//   next()
-// })
 export const Facility = model<TFacilities>('Facility', facilitiesSchema);
