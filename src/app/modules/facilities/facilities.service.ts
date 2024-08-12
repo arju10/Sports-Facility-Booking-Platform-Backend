@@ -47,9 +47,16 @@ const updateSingleFacilityIntoDB = async (
   return result;
 };
 
+// Delete Facility by ID ==== API: ("/api/facility/:id") === Method :[ DELETE]
+const deleteSingleFacilityFromDB = async (id: string) => {
+  const result = await Facility.findByIdAndDelete(id);
+
+  return result;
+};
 export const FacilityServices = {
   createFacilityIntoDB,
   getAllFacilitiesFromDB,
   getSingleFacilityFromDB,
   updateSingleFacilityIntoDB,
+  deleteSingleFacilityFromDB,
 };

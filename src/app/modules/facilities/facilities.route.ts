@@ -17,6 +17,7 @@ router.patch(
   validateRequest(FacilityValidations.updateFacilityValidationSchema),
   FacilityControllers.updateFacility,
 );
+router.delete('/:id', FacilityControllers.deleteSingleFacility);
 router.get('/', FacilityControllers.getAllFacilities);
 
 export const FacilityRouters = router;

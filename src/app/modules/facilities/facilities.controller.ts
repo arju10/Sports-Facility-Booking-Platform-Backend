@@ -67,9 +67,24 @@ const updateFacility = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+// Delete Facility by ID ==== API: ("/api/facility/:id") === Method :[ DELETE]
+const deleteSingleFacility = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await FacilityServices.deleteSingleFacilityFromDB(id);
+
+  handleNotFound(res, result, 'No Data Found');
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Facility is Deleted Successfully',
+    data: result,
+  });
+});
 export const FacilityControllers = {
   createFacility,
   getAllFacilities,
   getSingleFacility,
   updateFacility,
+  deleteSingleFacility,
 };
