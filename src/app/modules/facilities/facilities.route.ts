@@ -11,5 +11,6 @@ router.post(
   validateRequest(FacilityValidations.createFacilityValidationSchema),
   FacilityControllers.createFacility,
 );
+router.get('/', FacilityControllers.getAllFacilities);
 
 export const FacilityRouters = router;

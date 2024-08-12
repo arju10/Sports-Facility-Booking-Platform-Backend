@@ -24,4 +24,20 @@ const sendResponse = <T>(res: Response, data: TResponse<T>) => {
   });
 };
 
+// const sendResponse = <T>(res: Response, data: TResponse<T>) => {
+//   const { statusCode, success, message, meta, data: responseData } = data;
+//   const responseObject: Record<string, any> = {
+//     success,
+//     message,
+//   };
+
+//   if (meta) {
+//     responseObject.meta = meta;
+//   }
+
+//   responseObject.data = responseData;
+
+//   res.status(statusCode).json(responseObject);
+// };
+
 export default sendResponse;

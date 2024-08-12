@@ -1,18 +1,35 @@
 import { Response } from 'express';
 import httpStatus from 'http-status';
 
+// export const handleNotFound = <T>(
+//   res: Response,
+//   data: T | null,
+//   message: string = 'No Data Found',
+// ) => {
+//   if (!data || (Array.isArray(data) && data.length === 0)) {
+//     return res.status(httpStatus.NOT_FOUND).json({
+//       success: false,
+//       statusCode: httpStatus.NOT_FOUND,
+//       message: message,
+//       data: [],
+//     });
+//   }
+// };
+
 export const handleNotFound = <T>(
   res: Response,
   data: T | null,
-  message: string,
+  message: string = 'No Data Found',
 ) => {
-  if (!data) {
+  if (!data || (Array.isArray(data) && data.length === 0)) {
     return res.status(httpStatus.NOT_FOUND).json({
       success: false,
+      statusCode: httpStatus.NOT_FOUND,
       message: message,
-      data: null || undefined,
+      data: [],
     });
   }
+  return null; // This indicates that data was found
 };
 
 export const handleInsufficientQuantity = <T>(
