@@ -3,8 +3,8 @@ import catchAsync from '../../utils/catchAsync';
 import { FacilityServices } from './facilities.service';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
-import AppError from '../../error/AppError';
 import { handleNotFound } from '../../utils/handleNotFound';
+import notFound from '../../middlewares/notFound';
 
 // Create Single Facility  ==== API: ("/api/facility") === Method :[ POST]
 const createFacility = catchAsync(async (req: Request, res: Response) => {
@@ -35,7 +35,22 @@ const getAllFacilities = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// Get Single Facility by ID ==== API: ("/api/facility/:id") === Method :[ GET]
+const getSingleFacility = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await FacilityServices.getSingleFacilityFromDB(id);
+
+  handleNotFound(res, result, 'No Data Found');
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Facility retrived successfully',
+    data: result,
+  });
+});
 export const FacilityControllers = {
   createFacility,
   getAllFacilities,
+  getSingleFacility,
 };

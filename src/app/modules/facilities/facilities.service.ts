@@ -29,7 +29,15 @@ const getAllFacilitiesFromDB = async (query: Record<string, unknown>) => {
     result,
   };
 };
+
+// Get Single Facility by ID ==== API: ("/api/facility/:id") === Method :[ GET]
+const getSingleFacilityFromDB = async (id: string) => {
+  const result = await Facility.findById(id);
+  return result;
+};
+
 export const FacilityServices = {
   createFacilityIntoDB,
   getAllFacilitiesFromDB,
+  getSingleFacilityFromDB,
 };
