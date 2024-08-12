@@ -49,8 +49,27 @@ const getSingleFacility = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+// Update Facility by ID ==== API: ("/api/facility/:id") === Method :[ PATCH]
+const updateFacility = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await FacilityServices.updateSingleFacilityIntoDB(
+    id,
+    req.body,
+  );
+
+  handleNotFound(res, result, 'No Data Found');
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Facility is updated successfully',
+    data: result,
+  });
+});
 export const FacilityControllers = {
   createFacility,
   getAllFacilities,
   getSingleFacility,
+  updateFacility,
 };

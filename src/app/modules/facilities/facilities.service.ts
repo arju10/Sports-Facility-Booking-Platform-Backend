@@ -36,8 +36,20 @@ const getSingleFacilityFromDB = async (id: string) => {
   return result;
 };
 
+// Update Facility by ID ==== API: ("/api/facility/:id") === Method :[ PATCH]
+const updateSingleFacilityIntoDB = async (
+  id: string,
+  payload: Partial<TFacilities>,
+) => {
+  const result = await Facility.findOneAndUpdate({ _id: id }, payload, {
+    new: true,
+  });
+  return result;
+};
+
 export const FacilityServices = {
   createFacilityIntoDB,
   getAllFacilitiesFromDB,
   getSingleFacilityFromDB,
+  updateSingleFacilityIntoDB,
 };
