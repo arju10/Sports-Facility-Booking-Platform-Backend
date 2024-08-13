@@ -1,30 +1,27 @@
 import bcrypt from 'bcrypt';
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import { User } from '../users/users.model';
-import config from '../../../config';
-import { createToken } from './auth.utils';
-import AppError from '../../error/AppError';
 import httpStatus from 'http-status';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+
 import { TLoginUser } from './auth.interface';
+import { createToken } from './auth.utils';
+import { User } from '../users/users.model';
+import AppError from '../../error/AppError';
+import config from '../../../config';
 
 const loginUser = async (payload: TLoginUser) => {
-  // Checking if the user exists
+  // checking if the user is exist
   const user = await User.isUserExistsByEmail(payload.email);
-  console.log(payload.email);
+
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, 'This user is not found!');
+    throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
   }
+  //checking if the password is correct
 
-  // Checking if the password is correct
-  const isPasswordCorrect = await User.isPasswordMatched(
-    payload.password,
-    user.password,
-  );
-  if (!isPasswordCorrect) {
-    throw new AppError(httpStatus.FORBIDDEN, 'Password does not match!');
-  }
+  if (!(await User.isPasswordMatched(payload?.password, user?.password)))
+    throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched');
 
-  // Creating JWT tokens
+  //create token and sent to the  client
+
   const jwtPayload = {
     userId: user._id,
     role: user.role,
@@ -42,7 +39,6 @@ const loginUser = async (payload: TLoginUser) => {
     config.jwt_refresh_expires_in as string,
   );
 
-  // Returning the response
   return {
     success: true,
     statusCode: httpStatus.OK,
@@ -56,6 +52,9 @@ const loginUser = async (payload: TLoginUser) => {
       phone: user.phone,
       address: user.address,
     },
+    // accessToken,
+    // refreshToken,
+    // needsPasswordChange: user?.needsPasswordChange,
   };
 };
 
@@ -63,30 +62,29 @@ const changePassword = async (
   userData: JwtPayload,
   payload: { oldPassword: string; newPassword: string },
 ) => {
-  // Checking if the user exists
+  // checking if the user is exist
   const user = await User.isUserExistsByEmail(userData.userId);
 
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, 'This user is not found!');
+    throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
   }
 
-  // Checking if the password is correct
-  const isPasswordCorrect = await User.isPasswordMatched(
-    payload.oldPassword,
-    user.password,
-  );
-  if (!isPasswordCorrect) {
-    throw new AppError(httpStatus.FORBIDDEN, 'Password does not match!');
-  }
+  //checking if the password is correct
 
-  // Hashing new password
+  if (!(await User.isPasswordMatched(payload.oldPassword, user?.password)))
+    throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched');
+
+  //hash new password
   const newHashedPassword = await bcrypt.hash(
     payload.newPassword,
     Number(config.bcrypt_salt_rounds),
   );
 
   await User.findOneAndUpdate(
-    { _id: userData.userId },
+    {
+      id: userData.userId,
+      role: userData.role,
+    },
     {
       password: newHashedPassword,
       needsPasswordChange: false,
@@ -98,25 +96,26 @@ const changePassword = async (
 };
 
 const refreshToken = async (token: string) => {
-  // Checking if the given token is valid
+  // checking if the given token is valid
   const decoded = jwt.verify(
     token,
     config.jwt_refresh_secret as string,
   ) as JwtPayload;
+
   const { userId, iat } = decoded;
 
-  // Checking if the user exists
+  // checking if the user is exist
   const user = await User.isUserExistsByEmail(userId);
 
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, 'This user is not found!');
+    throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
   }
 
   if (
     user.passwordChangedAt &&
     User.isJWTIssuedBeforePasswordChanged(user.passwordChangedAt, iat as number)
   ) {
-    throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!');
+    throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized !');
   }
 
   const jwtPayload = {
