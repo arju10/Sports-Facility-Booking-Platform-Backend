@@ -3,11 +3,14 @@ import express from 'express';
 import validateRequest from '../../middlewares/validateRequest';
 import { FacilityValidations } from './facilities.validation';
 import { FacilityControllers } from './facilities.controller';
+import auth from '../../middlewares/auth';
+import { USER_ROLE } from '../users/users.constant';
 
 const router = express.Router();
 
 router.post(
   '/',
+  auth(USER_ROLE.admin),
   validateRequest(FacilityValidations.createFacilityValidationSchema),
   FacilityControllers.createFacility,
 );
