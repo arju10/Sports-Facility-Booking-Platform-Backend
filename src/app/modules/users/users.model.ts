@@ -7,7 +7,7 @@ const userSchema = new Schema<TUser>(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: { type: String, required: true, select: 0 },
     needsPasswordChange: {
       type: Boolean,
       default: true,
@@ -24,29 +24,25 @@ const userSchema = new Schema<TUser>(
 
 userSchema.pre('save', async function (next) {
   const user = this;
-  // Hasing Password
-  user.password = await bcrypt.hash(
-    user.password,
-    Number(config.bcrypt_salt_rounds),
-  );
-  next();
-});
-
-// Set password to an empty string after saving
-userSchema.post('save', function (doc, next) {
-  doc.password = '';
+  // Hashing Password
+  if (user.isModified('password')) {
+    user.password = await bcrypt.hash(
+      user.password,
+      Number(config.bcrypt_salt_rounds),
+    );
+  }
   next();
 });
 
 // Static method for checking if the user exists by email
 userSchema.statics.isUserExistsByEmail = async function (email: string) {
-  return await User.findOne({ email }).select('+password');
+  return await this.findOne({ email }).select('+password');
 };
 
 // Static method for checking if passwords are matched
 userSchema.statics.isPasswordMatched = async function (
-  plainTextPassword,
-  hashedPassword,
+  plainTextPassword: string,
+  hashedPassword: string,
 ) {
   return await bcrypt.compare(plainTextPassword, hashedPassword);
 };
@@ -61,4 +57,5 @@ userSchema.statics.isJWTIssuedBeforePasswordChanged = function (
   return passwordChangedTime > jwtIssuedTimestamp;
 };
 
-export const User = model<TUser>('User', userSchema);
+// Create the User model using the UserModel interface
+export const User = model<TUser, UserModel>('User', userSchema);
