@@ -1,9 +1,8 @@
 import { Types } from 'mongoose';
 
-
 export type TBookings = {
   date: string;
-  days:'Sat'| 'Sun'| 'Mon'| 'Tue'| 'Wed'| 'Thu'| 'Fri';
+  days: 'Sat' | 'Sun' | 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri';
   startTime: string;
   endTime: string;
   user?: Types.ObjectId;
@@ -11,4 +10,3 @@ export type TBookings = {
   payableAmount?: number;
   isBooked: 'confirmed' | 'unconfirmed' | 'canceled';
 };
-

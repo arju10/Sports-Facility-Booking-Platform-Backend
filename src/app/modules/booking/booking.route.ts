@@ -30,14 +30,14 @@ router.get(
 router.get(
   '/bookings/user',
   auth(USER_ROLE.user),
-  BookingController.getBookingsByUser 
+  BookingController.getBookingsByUser,
 );
 
 // Cancel a Booking (User Only)
 router.delete(
   '/bookings/:id',
   auth(USER_ROLE.user),
-  BookingController.cancelBooking 
+  BookingController.cancelBooking,
 );
 
 export const BookingRoutes = router;

@@ -5,8 +5,14 @@ import { Days } from '../facilities/facilities.constant';
 
 const bookingSchema = new Schema<TBookings>(
   {
-    date: { type: String,  },
-    days: [{ type: String, enum: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'], required: true }],
+    date: { type: String },
+    days: [
+      {
+        type: String,
+        enum: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+        required: true,
+      },
+    ],
     startTime: { type: String, required: true },
     endTime: { type: String, required: true },
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true },

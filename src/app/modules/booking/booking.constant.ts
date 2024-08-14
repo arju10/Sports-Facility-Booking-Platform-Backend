@@ -4,4 +4,12 @@ export const BOOKING_STATUS = {
   CANCELED: 'canceled',
 };
 
-export const BookingSearchbleFields = ['name','startTme','endTime','user','facility','isBooked','date'];
+export const BookingSearchbleFields = [
+  'name',
+  'startTme',
+  'endTime',
+  'user',
+  'facility',
+  'isBooked',
+  'date',
+];

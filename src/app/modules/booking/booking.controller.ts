@@ -6,24 +6,24 @@ import httpStatus from 'http-status';
 import { FacilityServices } from '../facilities/facilities.service';
 import { handleNotFound } from '../../utils/handleNotFound';
 
-// Check Availabkle 
-const checkAvailableBookingSlots = catchAsync(async (req: Request, res: Response) => {
-  const result = await FacilityServices.getAllFacilitiesFromDB(req.query);
+// Check Availabkle
+const checkAvailableBookingSlots = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await FacilityServices.getAllFacilitiesFromDB(req.query);
 
-  // Check if data is found
-  if (handleNotFound(res, result, 'No Data Found')) {
-    return;
-  }
+    // Check if data is found
+    if (handleNotFound(res, result, 'No Data Found')) {
+      return;
+    }
 
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.OK,
-    message: 'Facilities retrived successfully',
-    data: result,
-  });
-});
-
-
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Facilities retrived successfully',
+      data: result,
+    });
+  },
+);
 
 const createBooking = catchAsync(async (req: Request, res: Response) => {
   const result = await BookingService.createBookingIntoDB(req.body);
@@ -43,7 +43,7 @@ const getAllBookings = catchAsync(async (req: Request, res: Response) => {
     statusCode: httpStatus.OK,
     message: 'Bookings retrieved successfully',
     data: result.result,
-    meta: result.meta
+    meta: result.meta,
   });
 });
 
@@ -71,7 +71,7 @@ const getBookingsByUser = catchAsync(async (req: Request, res: Response) => {
 
 //   const userId = req.user._id; // Ensure req.user._id is available
 //   console.log(`Fetching bookings for user ID: ${userId}`); // Log the user ID
-  
+
 //   const result = await BookingService.getBookingsByUserIdFromDB(userId);
 //   console.log('Bookings retrieved:', result); // Log the result
 
@@ -82,7 +82,6 @@ const getBookingsByUser = catchAsync(async (req: Request, res: Response) => {
 //     data: result,
 //   });
 // });
-
 
 // Cancel a Booking (User Only)
 const cancelBooking = catchAsync(async (req: Request, res: Response) => {
@@ -101,6 +100,5 @@ export const BookingController = {
   getAllBookings,
   getBookingsByUser,
   cancelBooking,
-  checkAvailableBookingSlots
+  checkAvailableBookingSlots,
 };
-

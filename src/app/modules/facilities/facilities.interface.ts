@@ -18,7 +18,6 @@ export type TFacilities = {
 //   endTime: string;
 // };
 
-
 // export type TDays = 'Sat' | 'Sun' | 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri';
 
 // export type TTimeSlot = {
@@ -40,4 +39,3 @@ export type TFacilities = {
 //   days: TDays[];
 //   timeSlots: TTimeSlot[];
 // };
-

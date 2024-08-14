@@ -72,7 +72,6 @@
 //   updateFacilityValidationSchema,
 // };
 
-
 // 2nd -> Not working Update
 import { z } from 'zod';
 import { Days } from './facilities.constant';
@@ -143,4 +142,3 @@ export const FacilityValidations = {
   createFacilityValidationSchema,
   updateFacilityValidationSchema,
 };
-
