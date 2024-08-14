@@ -13,10 +13,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Application routes
-app.use('/api', routes);
+app.use('/api/', routes);
+
+
 
 app.get('/', async (req: Request, res: Response) => {
   res.send('Working successfully');
+  // console.log(x)
 });
 
 // Global Error Handler

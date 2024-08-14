@@ -23,9 +23,10 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 // Application routes
-app.use('/api', routes_1.default);
+app.use('/api/', routes_1.default);
 app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send('Working successfully');
+    // console.log(x)
 }));
 // Global Error Handler
 app.use(globalErrorhandler_1.default);

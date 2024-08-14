@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
 import config from './config/index';
-import app from './app';
+
 
 import { Server } from 'http';
+import app from './app';
 
 process.on('uncaughtException', error => {
   process.exit(1);

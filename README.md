@@ -1,15 +1,16 @@
 # Sports-Facility-Booking-Platform-Backend
 ### Setup the project
+### Live Link : https://sports-facility-booking-platform-backend-chi.vercel.app
 
 - Clone the repository from here https://github.com/arju10/Sports-Facility-Booking-Platform-Backend.git
 
 `
 git clone https://github.com/arju10/Sports-Facility-Booking-Platform-Backend.git
 `
-- Open the root directory of e-commerce-backend
+- Open the root directory of Sports-Facility-Booking-Platform-Backend
 
 `
-cd e-commerce-backend
+cd Sports-Facility-Booking-Platform-Backend
 `
 
 - Install All Dependencies by following this command
