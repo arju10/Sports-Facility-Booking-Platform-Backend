@@ -1,8 +1,8 @@
 // Application routes
 import express from 'express';
 import { FacilityRouters } from '../modules/facilities/facilities.route';
-import { UserRoutes } from '../modules/users/users.route';
 import { AuthRoutes } from '../modules/auth/auth.route';
+import { BookingRoutes } from '../modules/booking/booking.route';
 
 const router = express.Router();
 const moduleRoutes = [
@@ -13,6 +13,10 @@ const moduleRoutes = [
   {
     path: '/auth',
     route: AuthRoutes,
+  },
+  {
+    path: '/',
+    route: BookingRoutes,
   },
 ];
 

@@ -15,12 +15,17 @@ router.post(
   FacilityControllers.createFacility,
 );
 router.get('/:id', FacilityControllers.getSingleFacility);
-router.patch(
+router.put(
   '/:id',
+  auth(USER_ROLE.admin),
   validateRequest(FacilityValidations.updateFacilityValidationSchema),
   FacilityControllers.updateFacility,
 );
-router.delete('/:id', FacilityControllers.deleteSingleFacility);
+router.delete(
+  '/:id',
+  auth(USER_ROLE.admin),
+  FacilityControllers.deleteSingleFacility,
+);
 router.get('/', FacilityControllers.getAllFacilities);
 
 export const FacilityRouters = router;
