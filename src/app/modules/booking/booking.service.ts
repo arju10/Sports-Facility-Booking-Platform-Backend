@@ -94,7 +94,6 @@ const getBookingsByUserIdFromDB = async (userId: Types.ObjectId) => {
   const result = await Booking.find({ user: userId })
     .populate('facility')
     .populate('user'); // Adjust fields as necessary
-  // console.log(`Fetching bookings for user ID: ${userId}`); // Log the user ID
   return result;
 };
 

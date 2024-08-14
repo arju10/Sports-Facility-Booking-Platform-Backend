@@ -7,8 +7,8 @@ import config from '../../config';
 
 const auth = (...requiredRoles: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.headers.authorization?.split(' ')[1]; // Handle "Bearer <token>" format
-    console.log('Token: ', token);
+    const token = req.headers.authorization?.split(' ')[1]; 
+    
     if (!token) {
       return next(
         new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!'),
@@ -20,12 +20,12 @@ const auth = (...requiredRoles: string[]) => {
         token,
         config.jwt_access_secret as string,
       ) as JwtPayload;
-      console.log('decode', decoded);
+  
       const { userId, role, iat } = decoded;
-      const issuedAt = iat as number; // Assert type as number
+      const issuedAt = iat as number; 
 
-      const user = await User.isUserExistsById(userId); // Use the new method
-      console.log('User:', user); // For debugging user retrieval
+      const user = await User.isUserExistsById(userId); 
+
       if (!user) {
         return next(
           new AppError(httpStatus.NOT_FOUND, 'This user is not found!'),

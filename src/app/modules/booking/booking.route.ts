@@ -14,11 +14,7 @@ router.post(
   validateRequest(BookingValidations.createBookingZodSchema),
   BookingController.createBooking,
 );
-router.get(
-  '/check-availability',
-  // auth(USER_ROLE.user),
-  // validateRequest(BookingValidations.createBookingZodSchema),
-);
+router.get('/check-availability');
 
 router.get(
   '/bookings',

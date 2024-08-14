@@ -9,7 +9,6 @@ import notFound from '../../middlewares/notFound';
 // Create Single Facility  ==== API: ("/api/facility") === Method :[ POST]
 const createFacility = catchAsync(async (req: Request, res: Response) => {
   const result = await FacilityServices.createFacilityIntoDB(req.body);
-  // console.log("data",result)
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,

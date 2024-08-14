@@ -50,9 +50,7 @@ const getAllBookings = catchAsync(async (req: Request, res: Response) => {
 // View Bookings by User (User Only)
 const getBookingsByUser = catchAsync(async (req: Request, res: Response) => {
   const userId = req.user._id; // Assuming user ID is available in req.user
-  console.log(`Fetching bookings for user ID: ${userId}`); // Log the user ID
   const result = await BookingService.getBookingsByUserIdFromDB(userId);
-  console.log('Bookings retrieved:', result); // Log the result
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -61,27 +59,6 @@ const getBookingsByUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-// const getBookingsByUser = catchAsync(async (req: Request, res: Response) => {
-//   if (!req.user || !req.user._id) {
-//     return res.status(httpStatus.BAD_REQUEST).json({
-//       success: false,
-//       message: 'User ID is missing',
-//     });
-//   }
-
-//   const userId = req.user._id; // Ensure req.user._id is available
-//   console.log(`Fetching bookings for user ID: ${userId}`); // Log the user ID
-
-//   const result = await BookingService.getBookingsByUserIdFromDB(userId);
-//   console.log('Bookings retrieved:', result); // Log the result
-
-//   sendResponse(res, {
-//     success: true,
-//     statusCode: httpStatus.OK,
-//     message: 'Bookings retrieved successfully',
-//     data: result,
-//   });
-// });
 
 // Cancel a Booking (User Only)
 const cancelBooking = catchAsync(async (req: Request, res: Response) => {
