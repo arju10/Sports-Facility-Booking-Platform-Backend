@@ -1,24 +1,27 @@
 # Sports-Facility-Booking-Platform-Backend
-### Setup the project
 ### Live Link : https://sports-facility-booking-platform-backend-chi.vercel.app
 
-- Clone the repository from here https://github.com/arju10/Sports-Facility-Booking-Platform-Backend.git
+## Tech Stack
+- Node.js
+- TypeScript
+- Express.js
+- MongoDB
 
-`
-git clone https://github.com/arju10/Sports-Facility-Booking-Platform-Backend.git
-`
-- Open the root directory of Sports-Facility-Booking-Platform-Backend
+## Features
+- User Authentication (JWT)
+- Booking CRUD APIs
+- Input Validation
+- Structured Controllers & Routes
+- Error Handling
 
-`
-cd Sports-Facility-Booking-Platform-Backend
-`
+### Setup the project
+## How to Run
+1. Clone the repository from here https://github.com/arju10/Sports-Facility-Booking-Platform-Backend.git
+   ```bash
+   git clone https://github.com/arju10/Sports-Facility-Booking-Platform-Backend.git
+   cd Sports-Facility-Booking-Platform-Backend
+   ``` 
+2. `npm install` or `yarn install`  // Install all dependencies
+3. `npm run dev` or `yarn dev`  // Run the Projec
 
-- Install All Dependencies by following this command
 
-`
-yarn install
-`
-
-- Then run the Project by following code
-
-`yarn dev`
