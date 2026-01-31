@@ -2,6 +2,8 @@
 
 A comprehensive RESTful API for managing sports facility bookings with user authentication, facility management, and booking system.
 
+### Live Link: 
+### Postman collection: https://www.postman.com/speeding-eclipse-199364/workspace/public/collection/15474628-7e792ccd-4d80-4ac6-b17d-9322e87a43c4?action=share&source=copy-link&creator=15474628
 ## 🚀 Features
 
 - **Authentication & Authorization**
@@ -33,25 +35,26 @@ A comprehensive RESTful API for managing sports facility bookings with user auth
 
 ## 🛠️ Technology Stack
 
-- **Runtime**: Node.js (v18+)
-- **Framework**: Express.js (v4.21.2)
-- **Language**: TypeScript (v5.7.3)
-- **Database**: MongoDB with Mongoose (v8.9.3)
-- **Authentication**: JWT (jsonwebtoken v9.0.2)
-- **Validation**: Zod (v3.24.1)
-- **Password Hashing**: bcrypt (v5.1.1)
+- **Runtime**: Node.js 
+- **Framework**: Express.js 
+- **Language**: TypeScript 
+- **Database**: MongoDB with Mongoose 
+- **Authentication**: JWT 
+- **Validation**: Zod 
+- **Password Hashing**: bcrypt 
 
 ## 📋 Prerequisites
 
-- Node.js (v18 or higher)
-- MongoDB (v6 or higher)
+- Node.js 
+- MongoDB 
 - npm or yarn
 
 ## 🔧 Installation
 
-1. **Navigate to backend directory**
+1. **Clone or download the repository**
    ```bash
-   cd backend
+   git clone https://github.com/arju10/Sports-Facility-Booking-Platform-Backend.git
+   cd Sports-Facility-Booking-Platform-Backend
    ```
 
 2. **Install dependencies**
@@ -67,7 +70,7 @@ A comprehensive RESTful API for managing sports facility bookings with user auth
    Edit `.env` file with your configuration:
    ```env
    NODE_ENV=development
-   PORT=5000
+   PORT=5500
    DATABASE_URL=mongodb://localhost:27017/sports-facility-booking
    JWT_ACCESS_SECRET=your_secret_key_here
    JWT_REFRESH_SECRET=your_refresh_secret_here
@@ -87,7 +90,7 @@ A comprehensive RESTful API for managing sports facility bookings with user auth
    npm start
    ```
 
-## 📁 Project Structure
+<!-- ## 📁 Project Structure
 
 ```
 backend/
@@ -115,7 +118,7 @@ backend/
 ├── package.json
 ├── tsconfig.json
 └── README.md
-```
+``` -->
 
 ## 🔐 API Endpoints
 
@@ -217,6 +220,10 @@ Content-Type: application/json
 4. The token will be automatically saved to environment variables
 5. Use the token for authenticated requests
 
+
+`or can see here postman collection and use it.`
+
+https://www.postman.com/speeding-eclipse-199364/workspace/public/collection/15474628-7e792ccd-4d80-4ac6-b17d-9322e87a43c4?action=share&source=copy-link&creator=15474628
 ## 🔍 Query Parameters
 
 ### Pagination
