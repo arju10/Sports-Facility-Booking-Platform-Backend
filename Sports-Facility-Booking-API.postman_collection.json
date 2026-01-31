@@ -1,0 +1,451 @@
+{
+  "info": {
+    "name": "Sports Facility Booking Platform API",
+    "description": "Complete API collection for Sports Facility Booking Platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Signup User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\",\n  \"phone\": \"+1234567890\",\n  \"address\": \"123 Main St, City, Country\",\n  \"role\": \"user\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/signup",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "signup"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Admin User\",\n  \"email\": \"admin@example.com\",\n  \"password\": \"admin123\",\n  \"phone\": \"+1234567891\",\n  \"address\": \"456 Admin Ave, City, Country\",\n  \"role\": \"admin\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/signup",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "signup"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set(\"token\", jsonData.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"oldPassword\": \"admin123\",\n  \"newPassword\": \"newpassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/change-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "change-password"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Facility",
+      "item": [
+        {
+          "name": "Create Facility (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tennis Court\",\n  \"description\": \"Professional tennis court with high-quality surface\",\n  \"pricePerHour\": 50,\n  \"location\": \"Downtown Sports Complex\",\n  \"image\": \"https://example.com/tennis-court.jpg\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/facility",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "facility"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Facilities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/facility",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "facility"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Facilities with Filters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/facility?page=1&limit=10&searchTerm=tennis&sort=-pricePerHour",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "facility"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "searchTerm",
+                  "value": "tennis"
+                },
+                {
+                  "key": "sort",
+                  "value": "-pricePerHour"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Facility by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/facility/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "facility", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "facility_id_here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Facility (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pricePerHour\": 60,\n  \"description\": \"Updated professional tennis court\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/facility/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "facility", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "facility_id_here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Facility (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/facility/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "facility", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "facility_id_here"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Booking",
+      "item": [
+        {
+          "name": "Check Availability",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/bookings/check-availability?date=2026-02-15",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "bookings", "check-availability"],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2026-02-15"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Check Availability for Specific Facility",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/bookings/check-availability?date=2026-02-15&facility=facility_id_here",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "bookings", "check-availability"],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2026-02-15"
+                },
+                {
+                  "key": "facility",
+                  "value": "facility_id_here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"facility\": \"facility_id_here\",\n  \"date\": \"2026-02-15\",\n  \"startTime\": \"10:00\",\n  \"endTime\": \"12:00\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/bookings",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "bookings"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Bookings (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bookings",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "bookings"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Bookings with Filters (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bookings?page=1&limit=10&date=2026-02-15&isBooked=confirmed",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "bookings"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "date",
+                  "value": "2026-02-15"
+                },
+                {
+                  "key": "isBooked",
+                  "value": "confirmed"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Bookings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bookings/user",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "bookings", "user"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Booking",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bookings/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "bookings", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "booking_id_here"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

@@ -1,30 +1,38 @@
-import express, { Application, NextFunction, Request, Response } from 'express';
-import cors from 'cors';
+import express, { Application, Request, Response } from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import routes from "./routes";
+import globalErrorHandler from "./middlewares/globalErrorHandler";
+import notFound from "./middlewares/notFound";
 
-import routes from './app/routes';
-import globalErrorHandler from './app/middlewares/globalErrorhandler';
-import notFound from './app/middlewares/notFound';
 const app: Application = express();
 
-app.use(cors());
-
-// parser
+// Middleware
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://localhost:5173"],
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-// Application routes
-app.use('/api/', routes);
-
-
-
-app.get('/', async (req: Request, res: Response) => {
-  res.send('Working successfully');
-  // console.log(x)
+// Health check route
+app.get("/", (req: Request, res: Response) => {
+  res.status(200).json({
+    success: true,
+    message: "Sports Facility Booking Platform API is running",
+  });
 });
 
-// Global Error Handler
+// API routes
+app.use("/api", routes);
+
+// Global error handler
 app.use(globalErrorHandler);
 
-//Not Found
+// 404 Not Found handler
 app.use(notFound);
+
 export default app;

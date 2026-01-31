@@ -1,48 +1,34 @@
-import mongoose from 'mongoose';
-import config from './config/index';
+import app from "./app";
+import config from "./config";
+import { connectDB } from "./config/database";
 
+async function bootstrap() {
+  try {
+    // Connect to database
+    await connectDB();
 
-import { Server } from 'http';
-import app from './app';
+    // Start server
+    app.listen(config.port, () => {
+      console.log(`🚀 Server is running on port ${config.port}`);
+      console.log(`🌍 Environment: ${config.NODE_ENV}`);
+      console.log(`📝 API Documentation: http://localhost:${config.port}/api`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+    process.exit(1);
+  }
+}
 
-process.on('uncaughtException', error => {
+bootstrap();
+
+// Handle unhandled promise rejections
+process.on("unhandledRejection", (reason: Error) => {
+  console.error("Unhandled Rejection:", reason);
   process.exit(1);
 });
 
-let server: Server;
-async function boostrap() {
-  try {
-    await mongoose.connect(config.database_url as string);
-    console.log(`Database is connected successfully`);
-
-    // Server is running
-    app.listen(config.port, () => {
-      console.log(`Server is running on port http://localhost:${config.port}`);
-    });
-  } catch (error) {
-    console.log('Failed to connect Database', error);
-  }
-
-  process.on('unhandledRejection', error => {
-    // console.log("Unhandled Rejection is detected, we are closing our server.............")
-    if (server) {
-      server.close(() => {
-        console.log(error);
-        process.exit(1);
-      });
-    } else {
-      process.exit(1);
-    }
-  });
-}
-
-boostrap();
-
-// console.log(x)
-
-process.on('SIGTERM', () => {
-  console.log('SIGTERM is received');
-  if (server) {
-    server.close();
-  }
+// Handle uncaught exceptions
+process.on("uncaughtException", (error: Error) => {
+  console.error("Uncaught Exception:", error);
+  process.exit(1);
 });
