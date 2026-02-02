@@ -5,6 +5,9 @@ import path from "path";
 dotenv.config({ path: path.join(process.cwd(), ".env") });
 
 interface Config {
+  cloudinary_api_secret: string | undefined;
+  cloudinary_api_key: string | undefined;
+  cloudinary_cloud_name: string | undefined;
   NODE_ENV: string;
   port: number;
   database_url: string;
@@ -29,6 +32,9 @@ const config: Config = {
   jwt_access_expires_in: process.env.JWT_ACCESS_EXPIRES_IN || "7d",
   jwt_refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN || "30d",
   default_admin_password: process.env.DEFAULT_ADMIN_PASSWORD || "admin@123",
+  cloudinary_cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  cloudinary_api_key: process.env.CLOUDINARY_API_KEY,
+  cloudinary_api_secret: process.env.CLOUDINARY_API_SECRET,
 };
 
 export default config;
