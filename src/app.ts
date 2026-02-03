@@ -8,7 +8,7 @@ import notFound from "./middlewares/notFound";
 const app: Application = express();
 
 // Middleware
-app.use(cors()); // Enable CORS for all origins
+// app.use(cors()); // Enable CORS for all origins
 
 // app.use(cors({
 //   origin: [
@@ -21,6 +21,12 @@ app.use(cors()); // Enable CORS for all origins
 //   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
 //   allowedHeaders: ['Content-Type', 'Authorization'],
 // }));
+
+// TEMPORARY - for immediate testing
+app.use(cors({
+  origin: '*',
+  credentials: true,
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
