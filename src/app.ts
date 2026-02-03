@@ -10,23 +10,24 @@ const app: Application = express();
 // Middleware
 // app.use(cors()); // Enable CORS for all origins
 
-// app.use(cors({
-//   origin: [
-//     'http://localhost:3000',
-//     'http://localhost:5173',
-//     'http://localhost:8081',  
-//     'http://localhost:8080',
-//   ],
-//   credentials: true,
-//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-// }));
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'http://localhost:8081',  
+    'http://localhost:8080',
+    'https://sports-facility-booking-frontend-five.vercel.app',
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 // TEMPORARY - for immediate testing
-app.use(cors({
-  origin: '*',
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: '*',
+//   credentials: true,
+// }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
